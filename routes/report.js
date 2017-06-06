@@ -9,13 +9,16 @@ var pool = require('../config/db')();
 router.get('/:image/:type/:nickname/:content/:latitude/:longitude', function (req, res, next) {
     var type = parseInt(req.param.type);
     var content = req.param.content;
+    var nickname = req.param.nickname;
     var image = req.param.image;
     var longitude = parseFloat(req.param.longitude);
     var latitude = parseFloat(req.param.latitude);
 
+    console.log(type, content, image, longitude, latitude, nickname);
+
     pool.getConnection(function (err, conn) {
-        var sqlForCreateReport = 'INSERT INTO report(type, content, image, longitude, latitude) VALUES (?,?,?,?,?)';
-        conn.query(sqlForCreateReport, [type, content, image, longitude, latitude], function (err, row) {
+        var sqlForCreateReport = 'INSERT INTO report(type, content, nickname, image, longitude, latitude) VALUES (?,?,?,?,?,?)';
+        conn.query(sqlForCreateReport, [type, content, nickname, image, longitude, latitude], function (err, row) {
             if (err) {
                 conn.release();
                 throw err;
