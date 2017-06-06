@@ -7,9 +7,9 @@ var pool = require('../config/db')();
 
 //모든 report
 router.get('/create/:image/:type/:nickname/:content/:latitude/:longitude', function (req, res, next) {
-    var type = parseInt(req.param.type);
-    var content = req.param.content;
-    var nickname = req.param.nickname;
+    var type = req.params.type;
+    var content = req.params.content;
+    var nickname = req.params.nickname;
     var image = req.param.image;
     var longitude = parseFloat(req.param.longitude);
     var latitude = parseFloat(req.param.latitude);
