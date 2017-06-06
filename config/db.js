@@ -4,9 +4,9 @@ module.exports = function () {
     var pool = mysql.createPool({
         host: '52.78.1.190',
         port : 3306,
-        user : 'root',
+        user : 'test',
         password : '1111',
-        database:'streetreportDB',
+        database:'streetDB',
         connectionLimit:20,
         waitForConnections:false
     });
