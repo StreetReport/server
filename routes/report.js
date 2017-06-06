@@ -6,7 +6,7 @@ var router = express.Router();
 var pool = require('../config/db')();
 
 //모든 report
-router.get('/:type/:userNickname/:content/:image/:longitude/:latitude', function (req, res, next) {
+router.get('/:image/:type/:nickname/:content/:latitude/:longitude', function (req, res, next) {
     var type = parseInt(req.param.type);
     var content = req.param.content;
     var image = req.param.image;
