@@ -6,7 +6,7 @@ var router = express.Router();
 var pool = require('../config/db')();
 
 //모든 report
-router.get('/:image/:type/:nickname/:content/:latitude/:longitude', function (req, res, next) {
+router.get('/create/:image/:type/:nickname/:content/:latitude/:longitude', function (req, res, next) {
     var type = parseInt(req.param.type);
     var content = req.param.content;
     var nickname = req.param.nickname;
@@ -30,22 +30,5 @@ router.get('/:image/:type/:nickname/:content/:latitude/:longitude', function (re
     });
 });
 
-//read
-router.get('/report/:id', function (req, res, next) {
-    var id = req.params.id;
-
-    pool.getConnection(function (err, conn) {
-        var sqlForReportDetail = 'SELECT * FROM report WHERE id=' + id;
-        conn.query(sqlForReportDetail, function (err, row) {
-            if (err) {
-                conn.release();
-                throw err;
-            } else {
-                res.json(row[0]);
-                conn.release();
-            }
-        });
-    });
-});
 
 module.exports = router;
