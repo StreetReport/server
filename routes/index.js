@@ -6,19 +6,43 @@ var pool = require('../config/db')();
 //     res.render('index', {title: 'Express'});
 // });
 
-router.get('/:type', function (req, res, next) {
-    var type = req.params.type;
-    var arr = type.split('&');
-    for(var i=0; i<arr.length; i++){
+//신고리스트
+router.get('/', function (req, res) {
+    pool.getConnection(function (err, conn) {
+        var sqlForReportList = 'SELECT * FROM report ORDER BY idx DESC';
+        conn.query(sqlForReportList, function (err, rows) {
+            if (err) {
+                console.log(err);
+                conn.release();
+                throw err;
+            } else {
+                res.json(rows);
+                conn.release();
+            }
+        });
+    });
+});
+
+router.get('/report/:type', function (req, res) {
+    var type1 = req.params.type;
+    var arr = type1.split('&');
+    for (var i = 0; i < arr.length; i++) {
         arr[i] = arr[i].split('=')[1];
     }
 
-    type = parseInt(arr[0]);
+    var type = parseInt(arr[0]);
     var nickname = arr[1];
     var content = arr[2];
     var latitude = parseFloat(arr[3]);
     var longitude = parseFloat(arr[4]);
     var image = arr[5];
+
+    console.log(typeof type);
+    console.log(typeof nickname);
+    console.log(typeof content);
+    console.log(typeof latitude);
+    console.log(typeof longitude);
+    console.log(typeof image);
 
 
     pool.getConnection(function (err, conn) {
@@ -35,5 +59,6 @@ router.get('/:type', function (req, res, next) {
         });
     });
 });
+
 
 module.exports = router;
