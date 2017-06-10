@@ -13,7 +13,7 @@ router.get('/:nickname', function (req, res) {
                 conn.release();
                 throw err;
             } else {
-                res.json(rows);
+                res.json({"result":rows});
                 conn.release();
             }
         });
