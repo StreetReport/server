@@ -13,7 +13,7 @@ router.get('/:type', function (req, res, next) {
         arr[i] = arr[i].split('=')[1];
     }
 
-    var type = parseInt(arr[0]);
+    type = parseInt(arr[0]);
     var nickname = arr[1];
     var content = arr[2];
     var latitude = parseFloat(arr[3]);
